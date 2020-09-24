@@ -18,7 +18,7 @@ const parseExArguments = (args: Array<string>): ExerciseValues => {
   let periodD = new Array<number>();
   for (let i = 3; i < args.length; i++) {
     if (isNaN(Number(args[i]))) {
-      throw new Error('Provided values were not numbers!')
+      throw new Error('Provided values were not numbers!');
     }
     periodD = periodD.concat(Number(args[i]));
   }
@@ -26,10 +26,10 @@ const parseExArguments = (args: Array<string>): ExerciseValues => {
     return {
       target: Number(args[2]),
       period: periodD
-    }
+    };
   }
   throw new Error('Provided values were not numbers');
-}
+};
 
 const calculateExercises = (period: Array<number>, target: number) => {
   
@@ -68,7 +68,7 @@ const calculateExercises = (period: Array<number>, target: number) => {
     console.log(res);
   }
 
-  let obj = {
+  const obj = {
     periodLength: periodLength,
     trainingDays: trainingDays,
     success: success,
@@ -76,10 +76,10 @@ const calculateExercises = (period: Array<number>, target: number) => {
     ratingDescription: ratingDescription,
     target: target,
     average: average
-  }
+  };
 
   printResult(obj);
-}
+};
 
 //calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2)
 
@@ -87,5 +87,5 @@ try {
   const { target, period } = parseExArguments(process.argv);
   calculateExercises(period, target);
 } catch (e) {
-  console.log('Error: ', e.message);
+  console.log('Error: ', (e as Error).message);
 }
