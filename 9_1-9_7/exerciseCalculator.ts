@@ -1,6 +1,6 @@
 interface ExerciseValues {
   target: number;
-  period: Array<number>
+  period: Array<number>;
 }
 
 interface result {
@@ -31,7 +31,7 @@ const parseExArguments = (args: Array<string>): ExerciseValues => {
   throw new Error('Provided values were not numbers');
 };
 
-const calculateExercises = (period: Array<number>, target: number) => {
+export const calculateExercises = (period: Array<number>, target: number): result => {
   
   const periodLength = period.length;
   let trainingDays = 0;
@@ -79,6 +79,7 @@ const calculateExercises = (period: Array<number>, target: number) => {
   };
 
   printResult(obj);
+  return(obj);
 };
 
 //calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2)
