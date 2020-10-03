@@ -8,7 +8,7 @@ interface CoursePartBase {
 }
 
 interface CoursePartWithDescription extends CoursePartBase {
-  description: string
+  description: string;
 }
 
 interface CoursePartOne extends CoursePartWithDescription {
@@ -101,7 +101,7 @@ const Content: React.FC<{ parts: CoursePart[] }> = ({ parts }) => (
           return <p key={p.name}>{p.name}<br />Exercises: {p.exerciseCount}<br />Description: {p.description}</p>
         default:
           return assertNever(p);
-      };
+      }
     })}
   </React.Fragment>
 )

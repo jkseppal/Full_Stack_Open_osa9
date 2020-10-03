@@ -19,6 +19,17 @@ const getPatients = (): NonSsnPatients[] => {
   }));
 };
 
+const getPatient = (id: string): Patient => {
+  const patient = patientData.find(p => p.id === id);
+  if (!patient) {
+    throw new Error('patient not found');
+  }
+  if (!patient.entries) {
+    patient.entries = [];
+  }
+  return patient;
+};
+
 const addPatient = ( entry: NewPatient ): Patient => {
   const iidee: string = uuid.v4();
   const newPatient = {
@@ -32,5 +43,6 @@ const addPatient = ( entry: NewPatient ): Patient => {
 export default {
   getPatients,
   pat,
-  addPatient
+  addPatient,
+  getPatient
 };
