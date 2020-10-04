@@ -7,6 +7,7 @@ import { Icon } from 'semantic-ui-react';
 
 const PatientPage: React.FC<{ id: string }> = ({ id }) => {
   const [{ sensitivePatient }, dispatch] = useStateValue();
+  const [{ diagnoses }] = useStateValue();
 
   React.useEffect(() => {
     if (!sensitivePatient || sensitivePatient.id !== id) {
@@ -42,7 +43,7 @@ const PatientPage: React.FC<{ id: string }> = ({ id }) => {
             </div>
             {e.diagnosisCodes?.map(d =>
               <li key={d}>
-                {d}
+                {d} {diagnoses[d].name}
               </li>)}
           </div>
         )}
