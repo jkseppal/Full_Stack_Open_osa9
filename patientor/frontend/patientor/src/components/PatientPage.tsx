@@ -34,6 +34,18 @@ const PatientPage: React.FC<{ id: string }> = ({ id }) => {
           ssn: {sensitivePatient.ssn}<br />
           occupation: {sensitivePatient.occupation}
         </p>
+        <h3>entries</h3>
+        {sensitivePatient.entries?.map(e =>
+          <div key={e.id}>
+            <div>
+              {e.date} {e.description}  
+            </div>
+            {e.diagnosisCodes?.map(d =>
+              <li key={d}>
+                {d}
+              </li>)}
+          </div>
+        )}
       </div>
     );
   } else {
