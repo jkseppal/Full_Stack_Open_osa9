@@ -4,10 +4,11 @@ import { Patient } from '../types';
 import { apiBaseUrl } from '../constants';
 import { setPatient, useStateValue } from '../state';
 import { Icon } from 'semantic-ui-react';
+import EntryDetails from './EntryDetails';
 
 const PatientPage: React.FC<{ id: string }> = ({ id }) => {
   const [{ sensitivePatient }, dispatch] = useStateValue();
-  const [{ diagnoses }] = useStateValue();
+  //const [{ diagnoses }] = useStateValue();
 
   React.useEffect(() => {
     if (!sensitivePatient || sensitivePatient.id !== id) {
@@ -36,7 +37,7 @@ const PatientPage: React.FC<{ id: string }> = ({ id }) => {
           occupation: {sensitivePatient.occupation}
         </p>
         <h3>entries</h3>
-        {sensitivePatient.entries?.map(e =>
+        {/*sensitivePatient.entries?.map(e =>
           <div key={e.id}>
             <div>
               {e.date} {e.description}  
@@ -44,9 +45,12 @@ const PatientPage: React.FC<{ id: string }> = ({ id }) => {
             {e.diagnosisCodes?.map(d =>
               <li key={d}>
                 {d} {diagnoses[d].name}
-              </li>)}
+            </li>)}
           </div>
-        )}
+            )*/}
+          {sensitivePatient.entries?.map(e =>
+            <EntryDetails key={e.id} entry={e} />
+            )}
       </div>
     );
   } else {
