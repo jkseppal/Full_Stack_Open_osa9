@@ -17,7 +17,7 @@ const OccupationalHealthcareEntryC: React.FC<{ entry: OccupationalHealthcareEntr
       {entry.diagnosisCodes?.map(d =>
         <li key={d}>
           {d} {diagnoses[d].name}
-        </li>)}
+        </li>)}<br />
     </div>
   );
 };

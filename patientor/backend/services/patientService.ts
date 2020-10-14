@@ -1,7 +1,8 @@
 import patientData from '../data/patientsts';
 //import { v4 as uuidv4 } from 'uuid';
 import uuid = require('uuid');
-import { NonSsnPatients, Patient, NewPatient } from '../types';
+import { NonSsnPatients, Patient, NewPatient, Entry } from '../types';
+import utils from '../utils';
 
 //const patients: Array<Patient> = patientData;
 
@@ -40,9 +41,20 @@ const addPatient = ( entry: NewPatient ): Patient => {
   return newPatient;
 };
 
+const addEntry = (id: string, entry: Entry): Entry => {
+  const newEntry = utils.toNewEntry(entry);
+  const patient = patientData.find(p => p.id === id);
+  if (!patient) {
+    throw new Error("Patient does not exist!");
+  }
+  patient.entries?.push(newEntry);
+  return newEntry;
+};
+
 export default {
   getPatients,
   pat,
   addPatient,
-  getPatient
+  getPatient,
+  addEntry
 };

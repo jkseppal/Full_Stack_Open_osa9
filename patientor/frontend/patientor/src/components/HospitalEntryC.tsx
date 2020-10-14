@@ -18,6 +18,7 @@ const HospitalEntryC: React.FC<{ entry: HospitalEntry }> = ({ entry }) => {
         <li key={d}>
           {d} {diagnoses[d].name}
         </li>)}
+      discharged: {entry.discharge?.date}, {entry.discharge?.criteria}
     </div>
   );
 };
