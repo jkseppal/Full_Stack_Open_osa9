@@ -112,7 +112,7 @@ const toNewEntry = (object: any): Entry => {
         ...base,
         type: entryType,
         discharge: {
-          date: parseDateOfBirth(object.discharge.date),
+          date: object.discharge.date,
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           criteria: object.discharge.criteria,
         },

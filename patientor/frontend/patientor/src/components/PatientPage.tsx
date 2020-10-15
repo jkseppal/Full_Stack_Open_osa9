@@ -1,14 +1,40 @@
 import React from 'react';
 import axios from 'axios';
-import { Patient } from '../types';
+import { Patient, Entry } from '../types';
 import { apiBaseUrl } from '../constants';
-import { setPatient, useStateValue } from '../state';
-import { Icon } from 'semantic-ui-react';
+import { addEntry, setPatient, useStateValue } from '../state';
+import { Button, Icon } from 'semantic-ui-react';
 import EntryDetails from './EntryDetails';
+//import { error } from 'console';
+import AddHospitalEntryModal from '../AddHospitalEntryModal';
+import { HospitalEntryFormValues } from '../AddHospitalEntryModal/AddHospitalEntryForm';
 
 const PatientPage: React.FC<{ id: string }> = ({ id }) => {
   const [{ sensitivePatient }, dispatch] = useStateValue();
+  const [modalOpen, setModalOpen] = React.useState<boolean>(false);
+  const [error, setError] = React.useState<string | undefined>();
   //const [{ diagnoses }] = useStateValue();
+
+  const openModal = (): void => setModalOpen(true);
+
+  const closeModal = (): void => {
+    setModalOpen(false);
+    setError(undefined);
+  };
+
+  const submitNewHospitalEntry = async (values: HospitalEntryFormValues) => {
+    try {
+      const { data: newEntry } = await axios.post<Entry>(
+        `${apiBaseUrl}/patients/${id}/entries`,
+        values
+      );
+      dispatch(addEntry(id, newEntry));
+      closeModal();
+    } catch (e) {
+      console.error(e.response.data);
+      setError(e.response.data.error);
+    }
+  };
 
   React.useEffect(() => {
     if (!sensitivePatient || sensitivePatient.id !== id) {
@@ -51,6 +77,13 @@ const PatientPage: React.FC<{ id: string }> = ({ id }) => {
           {sensitivePatient.entries?.map(e =>
             <EntryDetails key={e.id} entry={e} />
             )}
+          <AddHospitalEntryModal
+            modalOpen={modalOpen}
+            onSubmit={submitNewHospitalEntry}
+            error={error}
+            onClose={closeModal}
+          />
+        <Button onClick={() => openModal()}>Add New Hospital Entry</Button>
       </div>
     );
   } else {
